@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{shared/layout :: layout(~{::main})}">
+<main>
+    <section class="panel">
+        <h1>Create account</h1>
+        <form method="post" th:action="@{/register}">
+            <label>Full name
+                <input type="text" name="fullName">
+            </label>
+            <label>Email
+                <input type="email" name="email">
+            </label>
+            <label>Password
+                <input type="password" name="password">
+            </label>
+            <label>Role
+                <select name="role">
+                    <option value="USER">User</option>
+                    <option value="MANAGER">Manager</option>
+                    <option value="ADMIN">Admin</option>
+                </select>
+            </label>
+            <label>
+                <input type="checkbox" name="admin" value="true"> Request admin access
+            </label>
+            <button type="submit">Create account</button>
+        </form>
+    </section>
+</main>
+</html>

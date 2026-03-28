@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{shared/layout :: layout(~{::main})}">
+<main>
+    <section class="panel">
+        <h1>Admin dashboard</h1>
+        <div class="grid">
+            <div class="panel">
+                <h3>Users</h3>
+                <table>
+                    <tr><th>ID</th><th>Email</th><th>Role</th><th>Action</th></tr>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.role}"></td>
+                        <td>
+                            <form method="post" th:action="@{/admin/impersonate}">
+                                <input type="hidden" name="userId" th:value="${user.id}">
+                                <button type="submit">Impersonate</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel">
+                <h3>Recent events</h3>
+                <table>
+                    <tr><th>When</th><th>Type</th><th>Details</th></tr>
+                    <tr th:each="event : ${events}">
+                        <td th:text="${event.createdAt}"></td>
+                        <td th:text="${event.eventType}"></td>
+                        <td th:text="${event.details}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+</html>

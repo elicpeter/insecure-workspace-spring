@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+  thymeleaf:
+    cache: false
+
+app:
+  base-url: http://localhost:8080
+  fake-support-token: fake-support-token-do-not-use
+  fake-webhook-secret: fake-webhook-secret-demo-only
+  upload-root: ./build/test-uploads
+  export-root: ./build/test-exports

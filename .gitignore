@@ -1,0 +1,10 @@
+/target/
+/build/
+/.m2/
+/uploads/
+/exports/
+/.idea/
+/.vscode/
+*.iml
+.DS_Store
+.env

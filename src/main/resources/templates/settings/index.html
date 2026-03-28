@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{shared/layout :: layout(~{::main})}">
+<main>
+    <section class="panel">
+        <h1>Settings</h1>
+        <div class="grid">
+            <div class="panel">
+                <h3>Profile</h3>
+                <form method="post" th:action="@{/settings/profile}">
+                    <label>Full name <input type="text" name="fullName" th:value="${currentUser.fullName}"></label>
+                    <label>Bio <textarea name="bio" th:text="${currentUser.bio}"></textarea></label>
+                    <button type="submit">Save profile</button>
+                </form>
+            </div>
+            <div class="panel">
+                <h3>Email signature preview</h3>
+                <form method="post" th:action="@{/settings/signature-preview}">
+                    <label>Template <textarea name="template"><span th:text="${user.fullName}"></span></textarea></label>
+                    <button type="submit">Preview</button>
+                </form>
+                <div th:if="${preview}" th:utext="${preview}"></div>
+            </div>
+        </div>
+    </section>
+</main>
+</html>

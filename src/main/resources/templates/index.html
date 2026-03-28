@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{shared/layout :: layout(~{::main})}">
+<main>
+    <section class="panel">
+        <h1>InsecureCollab</h1>
+        <p>A lightweight workspace collaboration app with projects, comments, attachments, and admin tooling.</p>
+        <form method="get" th:action="@{/}">
+            <label>Search projects
+                <input type="text" name="q" th:value="${q}">
+            </label>
+            <button type="submit">Search</button>
+        </form>
+        <div th:if="${q}" class="panel">
+            <h3>Search results for <span th:utext="${q}"></span></h3>
+            <table th:if="${searchResults != null}">
+                <tr><th>ID</th><th>Name</th><th>Workspace</th><th>Status</th></tr>
+                <tr th:each="row : ${searchResults}">
+                    <td th:text="${row.id}"></td>
+                    <td th:text="${row.name}"></td>
+                    <td th:text="${row.workspace_name}"></td>
+                    <td th:text="${row.status}"></td>
+                </tr>
+            </table>
+        </div>
+    </section>
+    <section class="panel">
+        <h2>Published projects</h2>
+        <div class="grid">
+            <div class="panel" th:each="project : ${projects}">
+                <h3 th:text="${project.name}"></h3>
+                <p th:text="${project.description}"></p>
+                <a th:href="@{/projects/{id}(id=${project.id})}">Open project</a>
+            </div>
+        </div>
+    </section>
+</main>
+</html>

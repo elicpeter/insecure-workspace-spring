@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{shared/layout :: layout(~{::main})}">
+<main>
+    <section class="panel">
+        <h1>Join workspace</h1>
+        <form method="post" th:action="@{/join}">
+            <label>Invite token
+                <input type="text" name="token" th:value="${token}">
+            </label>
+            <button type="submit">Join workspace</button>
+        </form>
+    </section>
+</main>
+</html>

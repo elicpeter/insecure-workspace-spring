@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{shared/layout :: layout(~{::main})}">
+<main>
+    <section class="panel">
+        <h1 th:text="${project.name}"></h1>
+        <p th:text="${project.description}"></p>
+        <p class="muted">Workspace: <span th:text="${project.workspace.name}"></span></p>
+        <div class="grid">
+            <div class="panel">
+                <h3>Edit project</h3>
+                <form method="post" th:action="@{/projects/{id}(id=${project.id})}">
+                    <label>Name <input type="text" name="name" th:value="${project.name}"></label>
+                    <label>Description <textarea name="description" th:text="${project.description}"></textarea></label>
+                    <label>Status <input type="text" name="status" th:value="${project.status}"></label>
+                    <label><input type="checkbox" name="published" value="true" th:checked="${project.published}"> Published</label>
+                    <button type="submit">Save</button>
+                </form>
+                <form method="post" th:action="@{/projects/{id}/delete(id=${project.id})}">
+                    <button type="submit">Delete project</button>
+                </form>
+            </div>
+            <div class="panel">
+                <h3>Upload attachment</h3>
+                <form method="post" enctype="multipart/form-data" th:action="@{/projects/{id}/attachments(id=${project.id})}">
+                    <input type="file" name="file">
+                    <button type="submit">Upload</button>
+                </form>
+                <table>
+                    <tr><th>Name</th><th>Download</th></tr>
+                    <tr th:each="attachment : ${attachments}">
+                        <td th:text="${attachment.originalFilename}"></td>
+                        <td><a th:href="@{/api/attachments/download(path=${attachment.storagePath})}">Download</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+    <section class="panel">
+        <h2>Comments</h2>
+        <form method="post" th:action="@{/projects/{id}/comments(id=${project.id})}">
+            <label>Comment <textarea name="body"></textarea></label>
+            <label><input type="checkbox" name="internalNote" value="true"> Internal note</label>
+            <button type="submit">Post comment</button>
+        </form>
+        <div th:each="comment : ${comments}" class="panel">
+            <div class="muted">
+                <span th:text="${comment.author.fullName}"></span>
+                <span th:text="${comment.internalNote ? 'internal' : 'shared'}"></span>
+            </div>
+            <div th:utext="${comment.body}"></div>
+        </div>
+    </section>
+</main>
+</html>

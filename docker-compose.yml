@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: insecure_collab
+      POSTGRES_USER: insecure_user
+      POSTGRES_PASSWORD: fake-password-not-for-real-systems
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

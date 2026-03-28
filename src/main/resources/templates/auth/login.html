@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{shared/layout :: layout(~{::main})}">
+<main>
+    <section class="panel">
+        <h1>Login</h1>
+        <p class="muted">Seeded demo password for the included users: <code>password123</code></p>
+        <p th:if="${error}" data-autoclear="true" th:text="${error}"></p>
+        <form method="post" th:action="@{/login}">
+            <label>Email
+                <input type="email" name="email" value="admin@demo.local">
+            </label>
+            <label>Password
+                <input type="password" name="password" value="password123">
+            </label>
+            <label>Next
+                <input type="text" name="next" th:value="${next}">
+            </label>
+            <button type="submit">Login</button>
+        </form>
+    </section>
+</main>
+</html>

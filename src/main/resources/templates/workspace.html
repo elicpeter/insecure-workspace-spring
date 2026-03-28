@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{shared/layout :: layout(~{::main})}">
+<main>
+    <section class="panel">
+        <h1 th:text="${workspace.name}"></h1>
+        <p class="muted" th:text="${workspace.slug}"></p>
+        <div class="grid">
+            <div class="panel">
+                <h3>Create project</h3>
+                <form method="post" th:action="@{/projects}">
+                    <input type="hidden" name="workspaceId" th:value="${workspace.id}">
+                    <label>Name <input type="text" name="name"></label>
+                    <label>Description <textarea name="description"></textarea></label>
+                    <label><input type="checkbox" name="privateProject" value="true" checked> Private project</label>
+                    <button type="submit">Create project</button>
+                </form>
+            </div>
+            <div class="panel">
+                <h3>Create invite</h3>
+                <form method="post" th:action="@{/workspaces/{id}/invites(id=${workspace.id})}">
+                    <label>Email hint <input type="text" name="emailHint"></label>
+                    <label>Role
+                        <select name="role">
+                            <option value="MEMBER">Member</option>
+                            <option value="MANAGER">Manager</option>
+                            <option value="OWNER">Owner</option>
+                        </select>
+                    </label>
+                    <button type="submit">Create invite</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="panel">
+        <h2>Projects</h2>
+        <table>
+            <tr><th>ID</th><th>Name</th><th>Status</th><th>Owner</th><th></th></tr>
+            <tr th:each="project : ${projects}">
+                <td th:text="${project.id}"></td>
+                <td th:text="${project.name}"></td>
+                <td th:text="${project.status}"></td>
+                <td th:text="${project.owner.fullName}"></td>
+                <td><a th:href="@{/projects/{id}(id=${project.id})}">Open</a></td>
+            </tr>
+        </table>
+    </section>
+</main>
+</html>

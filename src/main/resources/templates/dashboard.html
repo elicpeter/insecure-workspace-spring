@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{shared/layout :: layout(~{::main})}">
+<main>
+    <section class="panel">
+        <h1>Your dashboard</h1>
+        <div class="grid">
+            <div class="panel">
+                <h3>Create workspace</h3>
+                <form method="post" th:action="@{/workspaces}">
+                    <label>Name <input type="text" name="name"></label>
+                    <label>Slug <input type="text" name="slug"></label>
+                    <label>Visibility
+                        <select name="visibility">
+                            <option value="PRIVATE">Private</option>
+                            <option value="PUBLIC">Public</option>
+                        </select>
+                    </label>
+                    <button type="submit">Create</button>
+                </form>
+            </div>
+            <div class="panel">
+                <h3>Your workspaces</h3>
+                <table>
+                    <tr><th>Workspace</th><th>Role</th><th></th></tr>
+                    <tr th:each="membership : ${memberships}">
+                        <td th:text="${membership.workspace.name}"></td>
+                        <td th:text="${membership.role}"></td>
+                        <td><a th:href="@{/workspaces/{id}(id=${membership.workspace.id})}">Open</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+    <section class="panel">
+        <h2>Published work everyone can see</h2>
+        <div class="grid">
+            <div class="panel" th:each="project : ${publicProjects}">
+                <strong th:text="${project.name}"></strong>
+                <p th:text="${project.description}"></p>
+            </div>
+        </div>
+    </section>
+</main>
+</html>
